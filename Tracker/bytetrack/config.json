@@ -1,0 +1,7 @@
+{
+    "track_thresh": 0.4,
+    "track_buffer": 10,
+    "match_thresh": 0.8,
+    "min_box_area": 50,
+    "mot20": false
+}
