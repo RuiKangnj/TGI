@@ -13,7 +13,7 @@ Can be reached in the link below:
 Download and unzip onnx files, and move them to corresponding detector folders, the path of Nanodet for example: Detector/nanodet/model/Nanodet_M.onnx .
 
 # Dataset
-The High-quality annotated images of tomato leaves are available for download from the Roboflow link（https://universe.roboflow.com/jaas/leaf-and-tomato）. To facilitate the expansion of TGI networks for detection research on custom datasets, we provide image augmentation codes.
+The High-quality annotated images of tomato leaves are available for download from the Roboflow link https://universe.roboflow.com/jaas/leaf-and-tomato. To facilitate the expansion of TGI networks for detection research on custom datasets, we provide image augmentation codes.
 
 The augmentation codes can be found in the folder Essential_files/Dataset/Img_aug, where the IMG_AUG.py file is used to generate augmented images, and other codes are for post-aug images validation and dataset preparation. The utils.py file contains definitions for various processing operations, while the Format/ includes codes for yolo2voc, xml2coco, and yolo2xml conversions.
 
