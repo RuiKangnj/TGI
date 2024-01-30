@@ -1,0 +1,45 @@
+#yolov8.yaml# Ultralytics YOLO 🚀, AGPL-3.0 license
+
+# Parameters
+nc: 3  # number of classes
+scales: # model compound scaling constants, i.e. 'model=yolov8n.yaml' will call yolov8.yaml with scale 'n'
+  # [depth, width, max_channels]
+  n: [0.33, 0.25, 1024]  # n summary: 225 layers,  3157200 parameters,  3157184 gradients,   8.9 GFLOPs###1024 to 512
+  s: [0.33, 0.50, 1024]  # s summary: 225 layers, 11166560 parameters, 11166544 gradients,  28.8 GFLOPs
+  m: [0.33, 0.75, 1024]   # m summary: 295 layers, 25902640 parameters, 25902624 gradients,  79.3 GFLOPs
+
+
+# YOLOv8.0n backbone
+backbone:                         ###now[64,128,256,512,1024] change to [32,64,128,256,512]
+  # [from, repeats, module, args]
+  - [-1, 1, DWConv, [64, 3, 2]]  # 0-P1/2
+  - [-1, 1, DWConv, [128, 3, 2]]  # 1-P2/4
+  - [-1, 3, GhostConv, [128, True]]       ###C2f change to GhostConv
+  - [-1, 1, DWConv, [256, 3, 2]]  # 3-P3/8
+  - [-1, 6, GhostConv, [256, True]]
+  - [-1, 1, DWConv, [512, 3, 2]]  # 5-P4/16
+  - [-1, 6, GhostConv, [512, True]]
+  - [-1, 1, DWConv, [1024, 3, 2]]  # 7-P5/32
+  - [-1, 3, GhostConv, [1024, True]]
+  - [-1, 1, SPPF, [1024, 5]]  # 9
+
+# YOLOv8.0n head
+head:
+  - [-1, 1, nn.Upsample, [None, 2, 'nearest']]
+  - [[-1, 6], 1, Concat, [1]]  # cat backbone P4
+  - [-1, 3, GhostConv, [512]]  # 12
+
+  - [-1, 1, nn.Upsample, [None, 2, 'nearest']]
+  - [[-1, 4], 1, Concat, [1]]  # cat backbone P3
+  - [-1, 3, GhostConv, [256]]  # 15 (P3/8-small)
+
+  - [-1, 1, DWConv, [256, 3, 2]]
+  - [[-1, 12], 1, Concat, [1]]  # cat head P4
+  - [-1, 3, GhostConv, [512]]  # 18 (P4/16-medium)
+
+  - [-1, 1, DWConv, [512, 3, 2]]
+  - [[-1, 9], 1, Concat, [1]]  # cat head P5
+  - [-1, 3, C2f, [1024]]  # 21 (P5/32-large)
+  - [-1, 1, CBAM, [1024]]  # 22 CPCA
+
+  - [[15, 18, 22], 1, Detect, [nc]]  # Detect(P3, P4, P5)

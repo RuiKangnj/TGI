@@ -1,0 +1,13 @@
+train: ../../Tomato_leaf_aug_dataset_640/AUG_640_split/train2017/images
+val: ../../Tomato_leaf_aug_dataset_640/AUG_640_split/val2017/images
+test: ../../Tomato_leaf_aug_dataset_640/AUG_640_split/test2017/images
+
+nc: 3
+names: ['Healthy', 'Tomato', 'Unhealthy']
+
+roboflow:
+  workspace: jaas
+  project: leaf-navigation
+  version: 6
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/jaas/leaf-navigation/dataset/6
