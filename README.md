@@ -17,6 +17,8 @@ The High-quality annotated images of tomato leaves are available for download fr
 
 The augmentation codes can be found in the folder Essential_files/Dataset/Img_aug, where the IMG_AUG.py file is used to generate augmented images, and other codes are for post-aug images validation and dataset preparation. The utils.py file contains definitions for various processing operations, while the Format/ includes codes for yolo2voc, xml2coco, and yolo2xml conversions.
 
+We provided a tomato & leaf diseases aug dataset for model training, which could download from (https://drive.google.com/file/d/1U--z8pbU7yUIXOjxxYO5MHAFXaQSqt5V/view?usp=drive_link).
+
 # TGI-Detector training
 For the TGI-Detector model, it is based on modifications to the YOLOv8 network(https://github.com/ultralytics/ultralytics). Researchers can download our tgi_modules files to replace the original files in the official ultralytics/nn/ folder.
 
